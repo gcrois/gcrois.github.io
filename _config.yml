@@ -1,0 +1,110 @@
+# _config.yml - configuration for kata.tools
+#
+# @author: Cade Brown <me@cade.site>
+
+
+# -*- SITE -*-
+
+# your website's name
+# NOTE: i use my full URL, but if you have a catchy name, use it here
+name: "Kata"
+
+# the URL of this blog (normally <user>.github.io, but may be a custom URL too)
+displayurl: "kata.tools"
+
+# description of this blog (i.e. a medium text for SEO)
+desc: "software environment for web, desktop, embedded, and HPC"
+
+# the shell prompt to use while highlighting
+shellprompt: "sh $"
+
+# here's some default settings (these can be overridden by specific pages)
+defaults:
+  # default settings for all pages (i.e. /about, ...)
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      blahblahblah: myval
+      #use_jquery: true
+  # default settings for all posts
+  -
+    scope:
+      # apply to all posts
+      path: ""
+      type: "posts"
+    values:
+      use_katex: true
+      use_prism: true
+      use_disqus: true
+  # default settings for all drafts
+  -
+    scope:
+      # apply to all posts
+      path: ""
+      type: "drafts"
+    values:
+      use_katex: true
+      use_prism: true
+      use_disqus: true
+
+
+# -*- ACCOUNTS/LINKS -*-
+
+links:
+  # your primary email
+  # (we only assume you have this one)
+  email: "info@kata.tools"
+  # GitHub username, or username/project
+  github: katatools
+  # Twitter username
+  twitter: katatools
+  # Instagram username
+  #instagram: katatools
+
+# Disqus ID (comment to disable)
+disqus: katatools
+
+# Google Analytics ID (comment to disable)
+googleanalytics: G-B59X4FD8Q1
+
+  
+# -*- RENDERING -*-
+
+# renderer settings
+markdown: kramdown
+kramdown:
+  parse_block_html: true
+  # disable the default syntax highligher (since we use Prism.js)
+  syntax_highlighter_opts:
+    disable: true
+plugins:
+  - jekyll-paginate
+  - jekyll-feed
+
+
+# the default theme to use for the site (see 'css/main.css')
+# other nice values are: 'chalkboard' (dark theme), 'whiteboard' (light theme)
+theme_default: 'chalkboard'
+
+
+# -*- POSTS -*-
+
+# permalink format for a title
+permalink: /blog/:title
+
+
+# pagination settings
+paginate: 16
+paginate_path: /blog/page-:num
+
+
+# seperator that tells where the 'more' text ends for description generation
+# NOTE: should be an HTML comment
+sep_more: <!--more-->
+
+#plugins:
+#  - jekyll-paginate
+#  - jekyll-feed
+

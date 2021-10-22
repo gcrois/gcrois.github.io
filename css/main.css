@@ -1,0 +1,385 @@
+/* main.css - primary CSS for kata.tools
+ *
+ * 
+ * some useful links: 
+ *   * https://coolors.co/
+ *   * https://mycolor.space/?hex=%239E67B4&sub=1
+ *
+ * @author:    Cade Brown <cade@kscript.org>
+ */
+
+/* defaults for all themes */
+
+:root {
+  /*--font: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  /*--font: monospace;*/
+  --font: 'Source Sans Pro', sans-serif;
+  --col-theme: #935DA9;
+  /* theme gradients */
+  --col-theme-G1: #5E6EC5;
+  --font-code: monospace;
+
+  --footer-size: 64px;
+
+  --T-1: #cd6868;
+  --T-2: #c08cd0;
+  --T-3: #c79b6a;
+  --T-4: #5c8156;
+  --T-5: #6fabb3;
+  --T-6: #5274a8;
+}
+
+
+/* 'chalkboard' theme */
+
+html[data-theme='chalkboard'] {
+  /* what color should be the background overall */
+  --col-back: #0e0e0e;
+  /* what color should be the background for main content? */
+  --col-back-main: #2a2a2a;
+  /* what color should borders around images/figures be (borderA should blend in with the theme) */
+  --col-border-fig: #eeeeee88;
+  /* what color should text that matches the theme be? (for example, a black theme should have textA as black) */
+  --col-text: #eeeeee;
+  /* what color should text that DOESN'T match the theme be? (this should stand out against the theme, used for most content) */
+  --col-text-inv: #111111;
+  /* what color should clickable links be? */
+  --col-text-link: #82c7ff;
+}
+
+.themebutton-chalkboard {
+  background-image: linear-gradient(-45deg, #eeeeee 40%, #252525 60%);
+}
+
+/* 'whiteboard' theme */
+
+html[data-theme='whiteboard'] {
+  --col-back: #eeeeee;
+  --col-back-main: #dadada;
+  --col-border-fig: #11111188;
+  --col-text: #111111;
+  --col-text-inv: #eeeeee;
+  --col-text-link: #366fca;
+}
+
+.themebutton-whiteboard {
+  background-image: linear-gradient(-45deg, #111111 40%, #eeeeee 60%);
+}
+
+/*** HTML STD ***/
+
+
+body {
+  margin: 0;
+  
+  background-color: var(--col-back);
+
+  /* text config */
+  font-family: var(--font);
+  color: var(--col-text);
+  font-size: 20px;
+  tab-size: 4;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--col-text);
+  text-decoration: none;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  color: var(--col-text);
+  text-decoration: none;
+}
+
+a:link {
+  color: var(--col-link);
+}
+
+a:visited {
+  color: var(--col-link);
+}
+
+img {
+  margin: auto;
+  /* limit the size... i've been tweaking these values */
+  max-width: 65%;
+  max-height: 50vh;
+  display: block;
+  border: solid 1px var(--col-border-fig);
+}
+
+/* TODO: table formatting */
+
+table {
+  margin: auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+td {
+  padding: 0.2em;
+}
+
+/* used for horizontal break in page */
+
+hr {
+  margin: 1.2em 0.01em 0.9em 0.01em;
+}
+
+/** CUSTOM CLASSES **/
+
+/* attributed to anything that is clickable (i.e. needs to indicate that) */
+
+.clickable {
+  cursor: pointer;
+}
+
+header {
+  width: 100%;
+  background-color: var(--col-theme);
+  overflow: auto;
+  font-size: 24px;
+  color: var(--col-text-inv) !important;
+  font-weight: 600;
+}
+
+header a {
+  padding: 14px 14px 8px;
+  float: left;
+  text-decoration: none;
+  border-left: 1px solid #111111;
+  border-right: 1px solid #111111;
+}
+
+
+/* special links in the header */
+.header-link-1 {
+  border-bottom: 6px solid var(--T-1);
+}
+.header-link-2 {
+  border-bottom: 6px solid var(--T-2);
+}
+.header-link-3 {
+  border-bottom: 6px solid var(--T-3);
+}
+.header-link-4 {
+  border-bottom: 6px solid var(--T-4);
+}
+.header-link-5 {
+  border-bottom: 6px solid var(--T-5);
+}
+.header-link-6 {
+  border-bottom: 6px solid var(--T-6);
+}
+
+
+
+
+header a:hover {
+  background-color: var(--col-theme-G1);
+}
+
+.push {
+  height: var(--footer-size);
+}
+
+footer {
+  width: 100%;
+  box-shadow: 0 80vh 0 80vh #000;
+  height: var(--footer-size);
+
+  margin: 0 auto;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  background-color: var(--col-theme);
+  font-size: 20px;
+  color: var(--col-text-inv) !important;
+  font-weight: 600;
+}
+
+footer a {
+  padding: 12px;
+  text-decoration: none;
+}
+
+footer a:hover {
+  background-color: var(--col-theme-G1);
+}
+
+
+
+li {
+  padding-bottom: 12px;
+}
+
+/* parent of parent of main */
+
+.main-par-par {
+  min-height: calc(100vh - var(--footer-size));
+}
+
+/* parent of main */
+
+.main-par {
+  margin: 0em 12vw;
+  padding-bottom: 4em;
+}
+
+/* for page main content */
+
+.main {
+  padding: 1.1em;
+  margin-top: 1em;
+  border-radius: 14px;
+  background-color: var(--col-back-main);
+}
+
+/** POSTS **/
+
+.post-section {
+  overflow: hidden;
+}
+
+/* thumbnail container */
+
+.post-thumb-container {
+  float: left;
+  padding: 0.3em;
+  margin: 0.2em;
+  /* limit the size to something reasonable */
+  width: 18em;
+  max-height: 16em;
+}
+
+.post-thumb {
+  max-width: 90%;
+  max-height: 90%;
+  width: 640;
+  height: 400;
+}
+
+/** EXTRA **/
+
+/*** KaTeX formatting ***/
+
+/* for all katex elements */
+
+.katex-display {
+  overflow-x: auto;
+  width: 100%;
+  padding: 0.5em;
+}
+
+/* inline code */
+
+p>code, li>code {
+  font-family: var(--font-code);
+  background-color: var(--col-back);
+  border: 1px solid gray;
+  padding-left: 0.8px;
+  padding-right: 0.8px;
+  margin-left: 0.5px;
+  margin-right: 0.5px;
+}
+
+.fa-link {
+  color: var(--col-text-link);
+}
+
+.header-link {
+  font-size: 28px;
+  margin: auto;
+  margin-left: 6px;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out 0.1s;
+  -webkit-transition: opacity 0.1s ease-in-out 0.1s;
+  -moz-transition: opacity 0.1s ease-in-out 0.1s;
+  -ms-transition: opacity 0.1s ease-in-out 0.1s;
+}
+
+h2:hover .header-link, h3:hover .header-link, h4:hover .header-link, h5:hover .header-link, h6:hover .header-link {
+  opacity: 1;
+}
+
+/** Mobile/Web **/
+
+@media screen and (max-width: 768px) {
+
+  :root {
+    /* override some variables */
+    --footer-size: 104px;
+  }
+  
+  .main-par {
+    margin: 0.6em;
+  }
+  .post-thumb-container {
+    max-width: 98%;
+    float: none;
+    margin: 0 auto;
+    padding: 0em;
+  }
+
+  header {
+    text-align:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  header>a {
+    width: 100%;
+    padding: 1px 0px;
+
+    text-align: center;
+
+    margin: auto;
+    border: none;
+  }
+  .header-link-1 {
+    background-color: var(--T-1);
+    border-bottom: 1px solid black;
+  }
+  .header-link-2 {
+    background-color: var(--T-2);
+    border-bottom: 1px solid black;
+  }
+  .header-link-3 {
+    background-color: var(--T-3);
+    border-bottom: 1px solid black;
+  }
+  .header-link-4 {
+    background-color: var(--T-4);
+    border-bottom: 1px solid black;
+  }
+  .header-link-5 {
+    background-color: var(--T-5);
+    border-bottom: 1px solid black;
+  }
+  .header-link-6 {
+    background-color: var(--T-6);
+    border-bottom: 1px solid black;
+  }
+
+  .header-link-last {
+    border-bottom: 2px solid var(--col-text);
+  }
+
+
+  footer {
+    flex: 1;
+    flex-direction: column;
+  }
+  .footer-div {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include head.html %}
+
+<!-- we add some classes for prism.js, for global plugins -->
+
+<body class="match-braces line-numbers">
+
+
+    <div class="main-par-par">
+        {% include header.html %}
+
+        <div class="main-par">
+            <div class="main">
+                <!-- this is where your content goes -->
+                {{ content }}
+            </div>
+        </div>
+    </div>
+
+    {% include footer.html %}
+</body>
+</html>

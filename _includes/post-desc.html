@@ -1,0 +1,19 @@
+
+<section class='post-section'>
+    <a style='color: inherit; text-decoration: inherit;' href='{{ post.url }}' title='{{ post.title }}'>
+        <div class='post-thumb-container'>
+            {% if post.thumb %}
+            <img alt='' class='post-thumb' src='{{ post.thumb }}'>
+            {% else %}
+            <img alt='' class='post-thumb' src='/files/favicon.webp'>
+            {% endif %}
+        </div>
+
+        <h2>
+            {{ post.title }}
+        </h2>
+    </a>
+    <p>{{ post.excerpt | strip_html | truncate: 420 }}</p>
+
+    <em>posted {{ post.date | date: '%Y-%m-%d' }}, by <a href='mailto:{{ post.email }}'>{{ post.author }} &lt;{{ post.email }}&gt;</a></em>
+</section>
