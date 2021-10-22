@@ -11,6 +11,9 @@
 function theme_set(themename) {
   // default theme
   if ([null, undefined, 'null', 'undefined', '', 'default'].includes(themename)) themename = "{{ site.theme_default }}"
+  
+  // always set
+  themename = "{{ site.theme_default }}"
 
   // debug what theme is selected
   console.log('theme_set(', themename, ')')
