@@ -10,17 +10,12 @@ Kata is an open source and cross-platform ecosystem for developing software on d
   * Write an internal developer utility and embed it in your project
   * Write your own programming language (for example, a [DSL](https://en.wikipedia.org/wiki/Domain-specific_language)) that seamlessly integrates with the Kata stack
 
-Kata includes a few sub-projects to help that happen:
+You should check out:
 
-  * KataIR (`kir` CLI, `*.kir` files): a target-agnostic and language-agnostic intermediate representation (IR) that can be "lowered" and eventually compiled into runnable code
-  * KataScript (`ks` CLI, `*.ks` files): a high-level scripting language that is dynamic and boxed by default, with very expressive syntax
-  * KataCompiled (`kc` CLI, `*.kc` files): a low-level language with both static and dynamic typing support, as well as unboxed ("native") values
-  * KataPackageManager (`kpm` CLI, `*.kpm` files)
-
-
-This website is still a work-in-progress, so make sure to check it out!
+  * [KataScript (`ks` CLI, `*.ks` files)](https://ks.kata.tools), for writing most applications (it's easy to get started)
+  * [KataCompiler (`kc` CLI, `*.kc` files)](https://kc.kata.tools), for writing system-level or kernel-level utilities
+  * TODO... add more
 
 
-
-
+This website is still a work-in-progress, so make sure to check back as it is updated. You can view our progress on [/blog](/blog)
 
