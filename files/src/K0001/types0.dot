@@ -1,51 +1,45 @@
 digraph {
-#    layout="fdp";
+    #layout="fdp";
     rankdir="RL";
 
     subgraph cluster_0 {
-        rank="same";
+        rank=same;
         label="Templates";
+
         array [label="array[T]", shape="octagon", style="filled"];
         maybe [label="maybe[T]", shape="octagon", style="filled"];
         union [label="union[*T]", shape="octagon", style="filled"];
     }
 
-    avoid [label="@void"];
+    array -> array0 [style="dotted", arrowhead="none"];
+    array -> array1 [style="dotted", arrowhead="none"];
+    maybe -> maybe0 [style="dotted", arrowhead="none"];
+    maybe -> maybe1 [style="dotted", arrowhead="none"];
+    union -> union0 [style="dotted", arrowhead="none"];
+    union -> union1 [style="dotted", arrowhead="none"];
 
-    u32, f32 -> void;
-    avoid -> void;
 
-    string [label="string"];
-    string -> avoid;
+    f32, u32, string -> void;
+    maybe0, maybe1 -> void;
+    array0, array1 -> void;
+    union0, union1 -> void;
 
     array0 [label="array[u32]"];
-    array0 -> array [style="dotted"];
     array0 -> u32 [style="dashed"];
-    array0 -> avoid;
 
     array1 [label="array[array[u32]]"];
-    array1 -> array [style="dotted"];
     array1 -> array0 [style="dashed"];
-    array1 -> avoid;
-
+    
     maybe0 [label="maybe[u32]"];
-    maybe0 -> maybe [style="dotted"];
     maybe0 -> u32 [style="dashed"];
-    maybe0 -> void;
     
     maybe1 [label="maybe[string]"];
-    maybe1 -> maybe [style="dotted"];
     maybe1 -> string [style="dashed"];
-    maybe1 -> void;
 
     union0 [label="union[f32, string, array[u32]]"];
-    union0 -> union [style="dotted"];
     union0 -> f32, string, array0 [style="dashed"];
-    union0 -> void;
 
     union1 [label="union[u32, f32]"];
-    union1 -> union [style="dotted"];
     union1 -> u32, f32 [style="dashed"];
-    union1 -> void;
 
 }
