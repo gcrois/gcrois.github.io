@@ -1,0 +1,45 @@
+digraph {
+#    layout="fdp";
+    rankdir="RL";
+
+    subgraph cluster_0 {
+        rank="same";
+        label="Templates";
+        array [label="array[T]", shape="octagon", style="filled"];
+        maybe [label="maybe[T]", shape="octagon", style="filled"];
+        union [label="union[*T]", shape="octagon", style="filled"];
+    }
+
+
+    u32, f32 -> void;
+
+    string [label="string"];
+    string -> void;
+
+    array0 [label="array[u32]"];
+    array0 -> array [style="dashed"];
+    array0 -> void;
+
+    array1 [label="array[array[u32]]"];
+    array1 -> array [style="dashed"];
+    array1 -> void;
+
+    maybe0 [label="maybe[u32]"];
+    maybe0 -> maybe [style="dashed"];
+    maybe0 -> u32;
+    
+    maybe1 [label="maybe[string]"];
+    maybe1 -> maybe [style="dashed"];
+    maybe1 -> string;
+
+    union0 [label="union[f32, string, array[u32]]"];
+    union0 -> union [style="dashed"];
+    union0 -> f32, string, array1 [style="dotted"];
+    union0 -> void;
+
+    union1 [label="union[u32, f32]"];
+    union1 -> union [style="dashed"];
+    union1 -> u32, f32 [style="dotted"];
+    union1 -> void;
+
+}

@@ -4,9 +4,13 @@
 #
 # @author: Cade Brown <me@cade.site>
 
+rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+
+ALL_DOT := $(patsubst %.dot,%.dot.webp,$(call rwildcard,files,*.dot))
+
 
 # all targets
-all: files/favicon.webp files/kata-logo.webp
+all: files/favicon.webp files/kata-logo.webp $(ALL_DOT)
 
 
 .PHONY: all
@@ -17,3 +21,7 @@ files/kata-logo.webp: files/kata-logo.svg
 # regenerate favicon
 files/favicon.webp: files/kata-logo.webp
 	cwebp -lossless -resize 256 256 $< -o $@
+
+# generate dots
+%.dot.webp: %.dot
+	dot -Twebp -o $@ $<

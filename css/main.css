@@ -102,8 +102,8 @@ a:visited {
 img {
   margin: auto;
   /* limit the size... i've been tweaking these values */
-  max-width: 65%;
-  max-height: 50vh;
+  max-width: 84%;
+  max-height: 58vh;
   display: block;
   border: solid 1px var(--col-border-fig);
 }
@@ -262,6 +262,13 @@ li {
   max-height: 90%;
   width: 640;
   height: 400;
+}
+
+
+.main-post-thumb {
+
+  max-width: 42%;
+  max-height: 42%;
 }
 
 /** EXTRA **/
