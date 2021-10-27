@@ -15,7 +15,7 @@ layout: page
             {% else %}
             <a href="{{ post.url }}">{{ post.title }}</a>
             {% endif %}
-            </li>
+        </li>
             {% endfor %}
         </ul>
         {% if series-posts.size == 1 %}
@@ -24,6 +24,7 @@ layout: page
     </aside>
     <hr>
 {% endif %}
+
 
 <h1>{{ page.title }}</h1>
 
@@ -46,7 +47,6 @@ layout: page
         {% assign next_post_index = forloop.index | plus: 1 %}
     {% endif %}
     {% endfor %}
-
 
     {% for post in series-posts %}
     {% if prev_post_index == forloop.index %}

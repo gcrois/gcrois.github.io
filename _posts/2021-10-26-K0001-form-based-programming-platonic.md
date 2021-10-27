@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "K#0001: Type System"
+title: "K#0001: Form-Based Programming (a.k.a Platonic Typing)"
 author: Cade Brown
 email: me@cade.site
 categories: [kata]
@@ -9,7 +9,7 @@ series: types
 thumb: /files/src/K0001/types0.dot.webp
 ---
 
-buckle up! we're about to deep dive into the world of types, values, templates, and math. particularly, how they are used in the Kata languages and internally how they work
+buckle up! we're about to deep dive into the world of types, values, templates, and math. particularly, how they are used in the Kata programming languages, and how they are used to do "Form Based Programming"
 
 <!--more-->
 
@@ -28,7 +28,46 @@ for example:
   * `union[*T]`: a template that generates a container type that can be any of `*T` (which is 1-or-more types)
 
 
-```
+```kata
+
+form list[T] {
+
+  decl len: int;
+
+  func get(i: int)->T;
+  func set(i: int, v: T)->void;
+  func push(v: T)->void;
+
+  # declare other forms we participate in
+  as iter[T];
+}
+
+type array[T] {
+  is list[T];
+
+  len: usize;
+  cap: usize;
+  data: ptr[T];
+
+  func get(i: usize)->T {
+    if i >= len {
+      throw errors.
+      throw IndexOutOfBoundsError(i);
+      ret;
+    }
+    ret data[i];
+  }
+
+  func set(i: usize, v: T)->void {
+    data[i] = v;
+  }
+
+
+}
+
+
+
+
 
 # dictionary template type
 template dict[K: type, V: type] {
@@ -103,7 +142,7 @@ template dict[K: type, V: type] {
   }
 
   # this section shows how we implement various forms
-  as map[K, V] {
+  is map[K, V] {
     func get(k: K)->V? const {
       ret get(k, k.hash());
     }
@@ -121,8 +160,6 @@ template dict[K: type, V: type] {
     }
   }
 }
-
-
 
 ```
 
