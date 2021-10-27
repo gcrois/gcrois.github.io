@@ -1,45 +1,108 @@
 digraph {
+    #layout="circo";
     #layout="fdp";
-    rankdir="RL";
+    #rankdir="LR";
+    rankdir="BT";
+    #concentrate=true;
+
+    # CLUSTERS
 
     subgraph cluster_0 {
-        rank=same;
         label="Templates";
-
-        array [label="array[T]", shape="octagon", style="filled"];
-        maybe [label="maybe[T]", shape="octagon", style="filled"];
-        union [label="union[*T]", shape="octagon", style="filled"];
+        
+        array [label="array[T]", style="dashed"];
+        dict [label="dict[K, V]", style="dashed"];
+        adjgraph [label="adjgraph[N, E]", style="dashed"];
     }
 
-    array -> array0 [style="dotted", arrowhead="none"];
-    array -> array1 [style="dotted", arrowhead="none"];
-    maybe -> maybe0 [style="dotted", arrowhead="none"];
-    maybe -> maybe1 [style="dotted", arrowhead="none"];
-    union -> union0 [style="dotted", arrowhead="none"];
-    union -> union1 [style="dotted", arrowhead="none"];
+    # NODES (FORMS)
+
+    any [color="pink", style="filled"];
+
+    G [label="graph[N, E]"];
+    map [label="map[K, V]"];
+    list [label="list[T]"];
+    iter [label="iter[T]"];
+    maybe [label="maybe[T]"];
+
+    iterdfs [label="iter.dfs[N, E]"];
+
+    ReadIO [label="ReadIO[T]"];
+    WriteIO [label="WriteIO[T]"];
+    IO [label="IO[T]"];
 
 
-    f32, u32, string -> void;
-    maybe0, maybe1 -> void;
-    array0, array1 -> void;
-    union0, union1 -> void;
 
-    array0 [label="array[u32]"];
-    array0 -> u32 [style="dashed"];
+    # NODES (TYPES)
 
-    array1 [label="array[array[u32]]"];
+    u8, s32, zint [style="filled"];
+    f32, f64, zfloat [style="filled"];
+
+    string [style="filled"];
+
+    array0 [label="array[s32]", style="filled"];
+    array1 [label="array[array[s32]]", style="filled"];
+    dict0 [label="dict[string, f32]", style="filled"];
+    dict1 [label="dict[string, any]", style="filled"];
+    adjgraph0 [label="adjgraph[string, f32]", style="filled"];
+
+
+
+    # EDGES (SUBTYPE)
+
+    int, float -> real -> number -> any;
+    f32, f64, zfloat -> float;
+    u8, s32, zint -> int;
+
+    maybe -> any;
+    iter -> maybe;
+    maybe -> iter;
+    iterdfs -> iter [label="(N, list[(N, E)])"];
+    iterdfs -> iter [label="N"];
+
+    G -> list [label="nodes->N"];
+    G -> list [label="edges->E"];
+
+    G -> iterdfs;
+
+    G -> map [label="N, (E, list[N])"];
+    #G -> map [label="N, E, list[N]"];
+
+    iter -> any;
+    map -> any;
+
+    # self loop, since iterables can be enumerated
+    iter -> iter [label="(int, T)"];
+
+    IO -> ReadIO, WriteIO;
+    ReadIO -> iter;
+    WriteIO -> any;
+
+    list -> iter;
+
+    list -> map [label="int, T"];
+    map -> list [label="(K, V)"];
+
+    string -> list [label="char"];
+
+    array0 -> list [label="s32"];
+    array1 -> list [label="array[s32]"];
+
+    adjgraph0 -> G [label="string, f32"];
+
+    dict0 -> map [label="string, f32"];
+    dict1 -> map [label="string, any"];
+
+    # EDGES (DECAY)
+
+    array0 -> s32 [style="dashed"];
     array1 -> array0 [style="dashed"];
-    
-    maybe0 [label="maybe[u32]"];
-    maybe0 -> u32 [style="dashed"];
-    
-    maybe1 [label="maybe[string]"];
-    maybe1 -> string [style="dashed"];
 
-    union0 [label="union[f32, string, array[u32]]"];
-    union0 -> f32, string, array0 [style="dashed"];
+    # EDGES (TEMPLATE)
 
-    union1 [label="union[u32, f32]"];
-    union1 -> u32, f32 [style="dashed"];
+    adjgraph -> adjgraph0 [style="dotted", arrowhead="none"];
 
+    array -> array0, array1 [style="dotted", arrowhead="none"];
+
+    dict -> dict0, dict1 [style="dotted", arrowhead="none"];
 }

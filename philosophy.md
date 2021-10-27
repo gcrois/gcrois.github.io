@@ -12,6 +12,9 @@ Kata is designed with a unified philosophy in mind, that covers its design and u
   * different languages should be able to interact, so type systems and standard modules should be shared as much as possible
   * encapsulation, dependency management, and package distribution should be a part of the ecosystem, and never an after thought
 
+
+  * https://wiki.c2.com/?SoftwarePlatonism
+
 ## Comparisons
 
 
