@@ -7,37 +7,43 @@ digraph {
     subgraph cluster_0 {
         label="Templates";
         
-        array [label="array[T]", style="dashed"];
-        table [label="table[K,V]", style="dashed"];
-        algraph [label="algraph[N,E]", style="dashed"];
+        array [label="Array[T]", style="dashed"];
+        table [label="Table[K,V]", style="dashed"];
+        algraph [label="ALGraph[N,E]", style="dashed"];
     }
 
     subgraph cluster_1 {
         label="Types";
         f64, zfloat [style="filled"];
         u8, s32, zint [style="filled"];
+        str [label="String", style="filled"];
 
-        array0 [label="array[s32]", style="filled"];
-        array1 [label="array[array[str]]", style="filled"];
+        array0 [label="Array[s32]", style="filled"];
+        array1 [label="Array[Array[String]]", style="filled"];
 
-        table0 [label="table[str,zfloat]", style="filled"];
+        table0 [label="Table[String,ZFloat]", style="filled"];
 
-        algraph0 [label="algraph[str,f64]", style="filled"];
+        algraph0 [label="ALGraph[String,F64]", style="filled"];
 
-        str [label="str", style="filled"];
     }
 
-    array0 -> list [label="s32"];
-    array1 -> list [label="array[str]"];
-    array -> array0, array1;
+    array -> list;
+    table -> dict;
+    algraph -> graph_;
 
-    algraph0 -> graph_ [label="str,f64"];
-    algraph -> algraph0;
+    array0 -> array [label="s32"];
+    array1 -> array [label="Array[String]"];
 
-    table -> table0;
-    table0 -> dict [label="str,zfloat"];
+    algraph0 -> algraph [label="String,F64"];
+
+    table0 -> table [label="String,Float"];
     str -> text;
-    text -> list[label="char"];
+    text -> list [label="Char"];
+
+    Prime;
+    Even;
+    Even -> set [label="Int"];
+    Prime -> set [label="Int"];
 
     #array -> list;
     #table -> dict;
@@ -50,50 +56,57 @@ digraph {
     datum [color="#C79B6A", style="filled"];
     datum -> any;
 
-    text -> datum;
+    text -> datum [style="bold"];
+    #char -> text [style="bold"];
 
-    number [color="#6FABB3", style="filled"];
+    number [label="Number", color="#6FABB3", style="filled"];
     number -> datum;
 
-    real -> number;
+    real -> number [style="bold"];
+    complex -> number;
+    real -> complex;
+    imaginary -> complex;
     rational -> real;
     float -> rational;
     int -> rational;
 
-    map [label="map[K,V]"];
-    map -> any;
+    #group [label="Group[T]"];
+    #group -> set;
+
+    map [label="map[K,V] aka K->V"];
+    map -> any [style="bold"];
 
     set [label="set[T]"];
-    set -> any;
-    set -> iter;
+    set -> any [style="bold"];
 
     seq [label="seq[T]"];
-    seq -> any;
     seq -> iter;
-    seq -> set;
-
+    seq -> any [style="bold"];
 
     iter [label="iter[T]"];
-    iter -> any;
+    iter -> any [style="bold"];
 
     list [label="list[T]"];
+    list -> seq [style="bold"];
     list -> dict [label="int,T"];
-    list -> seq;
 
-    maybe [label="maybe[T]"];
-    maybe -> list;
+    #maybe [label="maybe[T]"];
+    #maybe -> list;
 
     #func [label="func[A,R]"];
     #func -> map [label="A,R"];
 
     dict [label="dict[K,V]"];
-    dict -> map;
+    dict -> map [style="bold"];
+    dict -> set [label=".keys:K"];
+    dict -> seq [label=".keys:K"];
     dict -> list [label="(K,V)"];
+    dict -> list [label=".vals:V"];
 
     graph_ [label="graph[N,E]"];
     graph_ -> any;
-    graph_ -> list [label="nodes: N"];
-    graph_ -> list [label="edges: E"];
+    graph_ -> list [label=".nodes:N"];
+    graph_ -> list [label=".edges:(N,N,E)"];
 
     u8, s32, zint -> int;
     f64, zfloat -> float;

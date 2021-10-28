@@ -1,0 +1,88 @@
+digraph {
+    #layout="fdp";
+    rankdir="BT";
+    #concentrate=true;
+
+    Any [color="#935EA9", style="filled"];
+    Datum [color="#C79B6A", style="filled"];
+    Number [color="#6FABB3", style="filled"];
+    Seq [label="Seq[T]"];
+    Set [label="Set[T]"];
+    Map [label="Map[K,V]"];
+
+    Seq -> Any;
+    Set -> Any;
+
+    Datum -> Any;
+
+    Text -> Datum;
+    Char -> Text;
+
+    Vector -> Datum;
+
+    Number -> Datum;
+    Real -> Complex, Number;
+    Imaginary -> Complex, Number;
+    Complex -> Number;
+    Rational -> Real;
+    Float -> Rational;
+    Int -> Rational;
+
+    MachineRational -> Rational;
+    MachineInt -> Int;
+    MachineFloat -> Float;
+}
+
+idea Datum {
+    is Any
+
+    has hash(this)->Int
+}
+
+idea Number {
+    is Datum
+}
+
+idea Complex {
+    is Number
+
+    has real(this)->Real
+    has imag(this)->Real
+}
+
+idea Real {
+    is Number
+
+    is Complex {
+        has real(this)->Real {
+            ret this
+        }
+        has imag(this)->Real {
+            ret 0
+        }
+    }
+}
+
+idea Rational {
+    is Real
+
+    has num(this)->Int
+    has den(this)->Int
+}
+
+
+idea Int {
+    is Rational {
+        has num(this)->Int {
+            ret this
+        }
+        has den(this)->Int {
+            ret 1
+        }
+    }
+}
+
+
+func hash(a: Datum)->usize {
+}
+
