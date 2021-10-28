@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "K#0001: Form-Based Programming (a.k.a Platonic Typing)"
+title: "K#0001: Form Based Programming (a.k.a Platonic Typing)"
 author: Cade Brown
 email: me@cade.site
 categories: [kata]

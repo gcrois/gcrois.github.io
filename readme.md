@@ -48,3 +48,7 @@ here are some tips
     * for example, `for f in files/*; do identify -format '%f %wx%y\n' $f; done` and look for any abnormally large images
   * specify only the software you need for a file with the `use_*` settings (see `_config.yml` for specifics)
     * by default, posts use KaTeX and Prism.js, while most pages *don't even load them in*
+
+## misc links
+
+  * https://docs.python.org/3/faq/design.html#why-does-python-use-methods-for-some-functionality-e-g-list-index-but-functions-for-other-e-g-len-list
