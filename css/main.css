@@ -37,6 +37,8 @@ html[data-theme='chalkboard'] {
   --col-back: #0e0e0e;
   /* what color should be the background for main content? */
   --col-back-main: #2a2a2a;
+  /* what color should be the sub background on top of main*/
+  --col-back-sub: #3a3a3a;
   /* what color should borders around images/figures be (borderA should blend in with the theme) */
   --col-border-fig: #eeeeee88;
   /* what color should text that matches the theme be? (for example, a black theme should have textA as black) */
@@ -77,7 +79,7 @@ body {
   /* text config */
   font-family: var(--font);
   color: var(--col-text);
-  font-size: 20px;
+  font-size: 22px;
   tab-size: 4;
 }
 
@@ -91,22 +93,37 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   text-decoration: none;
 }
 
-h2::before {
-  content: '# ';
-}
-h3::before {
-  content: '## ';
-}
-h4::before {
-  content: '### ';
-}
-
 a:link {
   color: var(--col-link);
 }
 
 a:visited {
   color: var(--col-link);
+}
+
+
+
+
+blockquote {
+  
+  background: var(--col-back-sub);
+  border-left: 10px solid var(--col-border-fig);
+  font-size: 1.2em;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  /*color: #ccc;*/
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+blockquote p {
+  margin-block-start: 0.5em;
 }
 
 img {
@@ -130,6 +147,10 @@ img {
 .img-L {
   max-width: 94%;
   max-height: 76vh;
+}
+
+.bk-inv {
+  background-color: #fff;
 }
 /* TODO: table formatting */
 
@@ -238,7 +259,7 @@ footer a:hover {
 
 
 li {
-  padding-bottom: 12px;
+  padding-bottom: 8px;
 }
 
 /* parent of parent of main */
@@ -257,7 +278,7 @@ li {
 /* for page main content */
 
 .main {
-  padding: 1.1em;
+  padding: 1.0em 2.2em;
   margin-top: 1em;
   border-radius: 14px;
   background-color: var(--col-back-main);

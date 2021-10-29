@@ -30,7 +30,7 @@ digraph {
     iter -> iter [label="uint,T"];
 
     seq -> map [label="uint,T"];
-    seq -> iter;
+    seq -> iter [label="start"];
 
     list -> seq;
     list -> dict [label="uint,T"];
