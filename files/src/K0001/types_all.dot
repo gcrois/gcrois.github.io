@@ -1,0 +1,107 @@
+digraph {
+    #layout="fdp";
+    rankdir="BT";
+    #concentrate=true;
+
+    ## NODES ##
+
+    any [color="#935EA9",style="filled"];
+    set [label="set[T]"];
+    map [label="map[K,V]"];
+    iter [label="iter[T]"];
+    seq [label="seq[T]"];
+    list [label="list[T]"];
+    dict [label="dict[K,V]"];
+    lazygraph [label="lazygraph[N,E]"];
+    graph_ [label="graph[N,E]"];
+    tree [label="tree[T]"];
+
+    datum [color="#C79B6A", style="filled"];
+    number [color="#6FABB3", style="filled"];
+
+
+    ## EDGES ##
+
+    set -> any;
+
+    map -> any;
+
+    iter -> any;
+    iter -> iter [label="uint,T"];
+
+    seq -> map [label="uint,T"];
+    seq -> iter;
+
+    list -> seq;
+    list -> dict [label="uint,T"];
+
+    dict -> map;
+    dict -> list [label="(K,V)"];
+    dict -> list [style="dashed",label="vals:V"];
+    dict -> set [style="dashed",label="keys:K"];
+
+    lazygraph -> map [label="(N,N),E"];
+    lazygraph -> set [style="dashed",label="nodes:N"];
+    lazygraph -> set [style="dashed",label="edges:(N,N)"];
+
+    graph_ -> lazygraph;
+    graph_ -> dict [label="(N,N),E"];
+    graph_ -> list [style="dashed",label="nodes:N"];
+    graph_ -> list [style="dashed",label="edges:(N,N)"];
+
+    tree -> any;
+    tree -> graph_ [style="dotted",label="T,void"];
+    #tree -> iter [style="dashed",label="dfs\nbfs"];
+
+
+    datum -> any;
+
+    number -> datum;
+
+    complex -> number;
+
+    real -> complex, number;
+
+    imaginary -> complex;
+
+    rational -> real;
+
+    int -> rational;
+
+    float -> rational;
+
+    enum -> int;
+
+    bool -> enum;
+
+    text -> datum;
+    text -> list [label="char"];
+    
+    char -> text;
+    
+
+    ## TYPES
+
+    subgraph cluster_1 {
+        label="Storage Types";
+
+        f64, zfloat [style="filled"];
+        _char [label="std.char", style="filled"];
+        _bool [label="std.bool", style="filled"];
+        u8, s32, zint [style="filled"];
+        str [style="filled"];
+
+    }
+
+    str -> text;
+    zint -> int;
+    s32 -> int;
+    u8 -> int;
+    f64 -> float;
+    zfloat -> float;
+    _bool -> bool;
+    _char -> char;
+
+
+
+}
