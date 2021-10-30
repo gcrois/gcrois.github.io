@@ -15,7 +15,7 @@ here is the full text of the license:
 ```md
 # Kata Public License (KPL)
 
-any uses and/or redistributions of this software are allowed with the following conditions:
+any uses and/or redistributions of this software are allowed, provided that:
 
   0. the authors/owners of this software are not liable for any damage
        associated with the use of this software
@@ -24,6 +24,8 @@ any uses and/or redistributions of this software are allowed with the following 
   2. any software that uses the source code, binary code, or other 
        redistribution of this software must include a copy of this license, 
        and an attribution to the authors/owners of this software
+  3. any redistribution of this software must allow its users the freedom
+       to modify, extend, and distribute the software under the KPL terms
 
 see: https://kata.tools/kpl
 

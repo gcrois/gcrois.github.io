@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "K#0001: Idea Based Programming (aka Platonic Typing)"
+title: "K#0001: Kata's Type System: Platonic Typing"
 author: Cade Brown
 email: me@cade.site
 categories: [kata]
@@ -9,7 +9,8 @@ series: types
 thumb: /files/src/K0001/types_all.dot.webp
 ---
 
-buckle up! we're about to dive into the world of math, programming, and language. particularly, how they interact and how they can be used in Kata via Idea Based Programming (aka Platonic Typing). i'm going to also explain some other type systems, and some issues that arise when using them.
+buckle up! we're about to dive into the world of math, programming, and language. particularly, how they interact and how they can be used in Kata via Platonic Typing. i'm going to also explain some other type systems, and some issues that arise when using them.
+
 <!--more-->
 
 
@@ -24,37 +25,32 @@ let me start by introducing an excerpt from a dialogue between Parmenides and So
 > -- in [*Parmenides*](https://en.wikipedia.org/wiki/Parmenides_(dialogue)) by [Plato](https://en.wikipedia.org/wiki/Plato). 
 
 
+if you're unfamiliar or need a refresher on what Platonism is, here's a good definition (emphasis mine):
 
-try to keep this in mind, as we'll revisit this later in the post. specifically, try to apply it to programming languages, concepts, and objects.
-
-<!--
-
-> par: And will not the something which is apprehended as one and the same in all, be an idea?
-> soc: Yes
-
-> soc: Nay, but the idea may be like the day which is one and the same in many places at once, and yet continuous with itself; in this way each idea may be one; and the same in all at the same time.
-> par: I like your way, Socrates, of making one in many places at once. You mean to say, that if I were to spread out a sail and cover a number of men, there would be one whole including many-is not that your meaning?
-
-
-> soc: ... but may not the ideas be thoughts only, and have no proper existence except in our minds, Parmenides? For in that case each idea may still be one, and not experience this infinite multiplication.
-
-> soc: in my opinion, the ideas are patterns fixed in nature, and other things are like them, and resemblances of them -- what is meant by the participation of other things in the ideas, is really assimilation to them.
-
--->
+> Platonism about mathematics (or mathematical platonism) is the metaphysical view that there are **abstract mathematical objects whose existence is independent** of us and our language, thought, and practices. 
+> 
+> **Just as electrons and planets exist independently of us, so do numbers and sets**. And just as statements about electrons and planets are made true or false by the objects with which they are concerned and these objects’ perfectly objective properties, so are statements about numbers and sets. 
+>
+> **Mathematical truths are therefore discovered, not invented.**
+>
+> -- Stanford, [*Platonism in the Philosophy of Mathematics*](https://plato.stanford.edu/entries/platonism-mathematics/)
 
 
-## Type Systems & Semantics
+try to keep this in mind, as we'll revisit this later in the post. specifically, try to apply it to programming languages, concepts, and objects. 
+
+
+## Type Systems, Semantics
 
 when we talk about programming, we (primarily) talk about concepts. for example, when we program on whiteboards using [psuedocode](https://en.wikipedia.org/wiki/Pseudocode), loose definitions of types and functions are used. we don't care about the actual implementation, we care about the semantics of the code (i.e. the underlying processes and algorithms). we could say that we are working in a **top down** fashion.
 
-however, when we're programming in a language, we're usually talking about the actual implementation. we typically tie functionality directly to the name we choose for a given concept. in this case, programmers are typically working in a **bottom up** fashion. for example, most object-oriented type systems with inheritance are bottom up, since we start with nothing and build up to more specific types.
+however, when we're programming in a language, we're usually dealing with an actual implementation. we typically tie functionality directly to the name we choose for a given concept. in this case, programmers are typically working in a **bottom up** fashion. for example, most object-oriented type systems with inheritance are bottom up, since we start with nothing and build up to more specific types.
 
 i've noticed that whiteboard programming is the best way to convey ideas to colleagues when we're working on a difficult problem, because all the "noise" in most programming languages is gone. when you understand a whiteboard full of psuedocode, the distance between math, computer science, and normal language (in our case, English) is reduced by (at least) an order of magnitude. as a result it takes less time to:
 
   * write/describe an algorithm
   * understand psuedocode written by someone else
 
-if only there was some way to succinctly represent that in a way that would actually run... let's see how most programming languages reason about these concepts:
+if only there was some way to succinctly represent that in a way that would actually run :P... but before we can describe such a system, let's remind ourselves of some existing type systems that are being used my millions of programmers in the world today:
 
 ### C, C++, C# (3 generations of bottom-up design)
 
@@ -129,7 +125,7 @@ now, we must **really** be done... right?
 
 ### Kata's Approach
 
-Kata's approach to types is different than all the aforementioned languages, although it is most similar to Julia's:
+Kata's approach to types is different than all the aforementioned languages, although it is most similar to Julia's. Kata's type system is based on [mathematical platonism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Platonism). you can read about more about [Kata's philosophy at /philosophy](/philosophy), but in terms of traditional type systems, Kata's can be described as:
 
   * most types are abstract, and cannot be instantiated directly
   * concrete types that can be instantiated are final/sealed, thus they never have concrete supertypes (only abstract ones)
@@ -137,13 +133,62 @@ Kata's approach to types is different than all the aforementioned languages, alt
 
 however, 
 
-
-  * Kata's abstract types are called "ideas", and can be thought of as the concept alone
-  * Kata's abstract types can be mutually recursive (i.e. a type can be a supertype of itself)
+  * Kata's abstract types are called "concepts", and can be thought of as a collection of properties, operations, and related concepts
+  * Kata's abstract types can be mutually recursive (i.e. a concept can be a superconcept of itself)
     * there can be arbitrary cycles, self-loops, and multiple inheritance within the abstract world
 
+i refer to any type system that follows these principles as having "Platonic Typing" rules. within individual Kata languages (KataCompiled, KataScript, etc), concepts and implementations can be shared freely through different syntaxes that may be better suited for certain purposes. 
+
+while the builtin concepts (like `list[T]`, `dict[K,V]`, and so on) describe most useful types and cover >90% of everyday development tasks, more concepts can be invented for a particular purpose that extend or specializes existing ones. take, for example, the study of biology -- it may require types for the concept of a gene, the concept of a protein, and the concept of a cell, which may interact with existing structures and ideas. the very basis of Kata's type system is this graph of concepts and their interactions, which can be understood by an abstract model of computation.
+
+then, a small bootstrapping phase is required to implement some concrete types and objects that can be run on an actual physical machine. conceptually, though, code is being compiled by a mechanical mind, and ran in a digital simulation.
+
+PLATO (Platform/Language Agnostic Typed Ontology)
 
 ![type graph (all)](/files/src/K0001/types_all.dot.webp){: .img-L }
 
-TODO: explain it
 
+```plato
+# collatz.kc
+
+# here, we declare a singleton type template 'CollatzGraph[T]'
+# this implements the singleton pattern and allows us
+single CollatzGraph[T] is graph[T is int] {
+
+  seen: cache[T,bool]
+
+  # ret edges from 'n'
+  func edges(n: T)->iter[T] {
+    if n % 2 == 0, ret [n // 2]
+
+    ret [3 * n + 1]
+  }
+
+  # ret whether 'n' passes the collatz test (i.e. ends up at '1')
+  func check(n: T)->bool @CacheLRU {
+    # check if 'n' is in the depth first search
+    ret (this.dfs(n) as iter[T]).contains(1)
+  }
+}
+
+# get a reference to the singleton for a collatz graph
+g: CollatzGraph[u32] = default
+
+# now, check 1 through 10 (these should all print 'yes')
+for n in range(1, 10) {
+  print($'{n}: {g.check(n)}')
+}
+
+# now, import modules for graph vizualization
+import graphviz
+import kos.fs
+
+# write to a text file, which can be rendered online
+# for example, paste in this website: https://dreampuf.github.io/GraphvizOnline/
+with fp = kos.fs.open('collatz.dot', 'T') {
+  # this will render the graph to a text file, showing all traversals required
+  #   to determine that 1 through 10 pass the collatz test
+  fp.write(graphviz.dot(g, range(1, 10)))
+}
+
+```

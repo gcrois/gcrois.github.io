@@ -2,20 +2,18 @@
 layout: page
 title: Kata
 permalink: /
+notitle: true
 ---
 
-Kata is an open source and cross-platform ecosystem for developing software on desktop, web, mobile, and other targets. For example, these are all supported use cases:
+![Kata logo](/files/kata-logo.svg){: .img-right }
 
-  * Develop an application, and deploy to native, web, and mobile targets from a single source
-  * Write an internal developer utility and embed it in your project
-  * Write your own programming language (for example, a [DSL](https://en.wikipedia.org/wiki/Domain-specific_language)) that seamlessly integrates with the Kata stack
+## What is Kata?
 
-You should check out:
+Kata is a cross-platform ecosystem for developing software on desktop, mobile, web, and HPC platforms. it is a framework for building software that is easy to use, maintain, and extend. 
 
-  * [KataScript (`ks` CLI, `*.ks` files)](https://ks.kata.tools), for writing most applications (it's easy to get started)
-  * [KataCompiler (`kc` CLI, `*.kc` files)](https://kc.kata.tools), for writing system-level or kernel-level utilities
-  * TODO... add more
+[Kata will **always** be free](/kpl). part of Kata's mission is to provide a Free and Open Source (FOSS) software development environment for everyone.
 
+## How do I get started?
 
-This website is still a work-in-progress, so make sure to check back as it is updated. You can view our progress on [/blog](/blog)
+right now, Kata is a work in progress and can't be downloaded. you can check on our [blog (/blog)](/blog) for updates, as well as [the GitHub repo](https://github.com/katatools/kata) for current status.
 
