@@ -62,8 +62,6 @@ digraph {
 
     real -> complex, number;
 
-    imaginary -> complex;
-
     rational -> real;
 
     int -> rational;
@@ -83,7 +81,7 @@ digraph {
     ## TYPES
 
     subgraph cluster_1 {
-        label="Storage Types";
+        label="Machine Types";
 
         f64, zfloat [style="filled"];
         _char [label="std.char", style="filled"];

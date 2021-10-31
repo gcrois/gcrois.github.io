@@ -1,0 +1,64 @@
+digraph {
+    #layout="fdp";
+    rankdir="BT";
+    #concentrate=true;
+
+    ## NODES ##
+
+    any [color="#935EA9",style="filled"];
+
+    datum [color="#C79B6A", style="filled"];
+    number [color="#6FABB3", style="filled"];
+
+
+    ## EDGES ##
+
+
+    datum -> any;
+
+    number -> datum;
+
+    complex -> number;
+
+    real -> complex, number;
+
+    rational -> real;
+
+    int -> rational;
+
+    float -> rational;
+
+    enum -> int;
+
+    bool -> enum;
+
+    text -> datum;
+    
+    char -> text;
+    
+
+    ## TYPES
+
+    subgraph cluster_1 {
+        label="Machine Types";
+
+        f64, zfloat [style="filled"];
+        _char [label="std.char", style="filled"];
+        _bool [label="std.bool", style="filled"];
+        u8, s32, zint [style="filled"];
+        str [style="filled"];
+
+    }
+
+    str -> text;
+    zint -> int;
+    s32 -> int;
+    u8 -> int;
+    f64 -> float;
+    zfloat -> float;
+    _bool -> bool;
+    _char -> char;
+
+
+
+}

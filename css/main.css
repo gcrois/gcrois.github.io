@@ -359,6 +359,20 @@ h2:hover .header-link, h3:hover .header-link, h4:hover .header-link, h5:hover .h
   opacity: 1;
 }
 
+h2::before {
+  content: '# ';
+}
+
+h3::before {
+  content: '## ';
+}
+
+h4::before {
+  content: '### ';
+}
+h4::before {
+  content: '#### ';
+}
 /** Mobile/Web **/
 
 @media screen and (min-width: 768px) {

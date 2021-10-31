@@ -50,7 +50,7 @@ i've noticed that whiteboard programming is the best way to convey ideas to coll
   * write/describe an algorithm
   * understand psuedocode written by someone else
 
-if only there was some way to succinctly represent that in a way that would actually run :P... but before we can describe such a system, let's remind ourselves of some existing type systems that are being used my millions of programmers in the world today:
+if only there was some way to succinctly represent that in a way that would actually run on a physical machine... but before we can describe such a system, let's remind ourselves of some existing type systems that are being used my millions of programmers in the world today to great effect:
 
 ### C, C++, C# (3 generations of bottom-up design)
 
@@ -60,7 +60,7 @@ with most programming languages, there is a coupling between the abstract ideas,
     * be slow/inefficient for some types or all, or for different hardware
     * have bugs present
     * be incompatible with other implementations
-    * choose odd/non-standard names which is less readable, invites bugs, and slows development
+    * choose odd/non-standard names which is less readable, invites bugs from misconceptions, and slows development
   * switching between different implementations is difficult
   * the idea is not composable (i.e. having a list of lists is difficult...)
 
@@ -74,7 +74,7 @@ of course, C is an old language and is not meant to be a very high level languag
 
 going further, C# (aka (C++)++) fixes these (and provides a syntax with more forethought). in C#, multiple inheritance is outlawed, and [interfaces](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/types/interfaces) are used to organize functionality. a single type can implement multiple interfaces, but can only derive from 1 super type (i.e. single inheritance).
 
-this means that:
+this means that, for C#:
 
   * the type hierarchy is a tree (as opposed to C++, which is a directed acyclic graph (DAG))
   * the interface hierarchy is a DAG (i.e. there can't be a cycle of interfaces)
@@ -94,17 +94,17 @@ many modern languages with vastly different approaches to type systems have aris
 
 things are complicated further when you realize that the existence of duck-typing and multiple inheritance in Python is kind of redundant; shouldn't they just stick to one scheme or the other for polymorphism? after all, the [Zen of Python](https://www.python.org/dev/peps/pep-0020/) says that "There should be one-- and preferably only one --obvious way to do it"... and yet there are 2 ways to do it, neither of which obvious or complete
 
-i don't think Python should be our "success story" for modern languages...
+i don't think Python should be our "success story" for modern languages... conceptually, however, having multiple abstract base types/interfaces describing an object is a useful way to represent the concept of polymorphism. the biggest problem is that it's not clear how to implement this in a way that is both efficient and robust.
 
 #### Lua (and LuaJIT)
 
 Lua ([LuaJIT](https://luajit.org/)) solves the typing problem a very interesting way: simply restrict the list of all types to a set of known types (specifically, there are [7 types](https://www.lua.org/manual/2.2/section3_3.html)). this means that the type system is a static type system, and the runtime can be optimized to use a single dispatch table. however, it has the restriction that no custom types can be defined.
 
-so, although Lua is very fast, it can't really do everything you'd want out of a general purpose programming language (although, it's very useful for scripting when you need performance)
+so, although Lua is very fast, it can't really do everything you'd want out of a general purpose programming language (although, it's very useful for scripting when you need performance). 
 
 #### Julia
 
-a language that stands out is [Julia](https://julialang.org/). although Julia is a high level dynamic language it can be just as fast as native code, and is being used for High Performance Computing (HPC) and Data Science (check their [benchmarks](https://julialang.org/benchmarks/)). 
+a language that stands out is [Julia](https://julialang.org/). although Julia is a high level dynamic language it can be just as fast as native code, and is being used for High Performance Computing (HPC) and Data Science (check their [benchmarks](https://julialang.org/benchmarks/)):
 
 ![Julia benchmarks](https://julialang.org/assets/benchmarks/benchmarks.svg){: .img-M .bk-inv }
 
@@ -125,28 +125,68 @@ now, we must **really** be done... right?
 
 ### Kata's Approach
 
-Kata's approach to types is different than all the aforementioned languages, although it is most similar to Julia's. Kata's type system is based on [mathematical platonism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Platonism). you can read about more about [Kata's philosophy at /philosophy](/philosophy), but in terms of traditional type systems, Kata's can be described as:
+Kata's approach to types is different than all the aforementioned languages, although it is most similar to Julia's. Kata's type system is based on [mathematical platonism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Platonism). you can read about more about [Kata's philosophy here](/philosophy), but in terms of traditional type systems, Kata's can be described as:
 
-  * most types are abstract, and cannot be instantiated directly
-  * concrete types that can be instantiated are final/sealed, thus they never have concrete supertypes (only abstract ones)
-  * a large graph of mathematical concepts and interfaces is used to define the type system
 
-however, 
 
-  * Kata's abstract types are called "concepts", and can be thought of as a collection of properties, operations, and related concepts
-  * Kata's abstract types can be mutually recursive (i.e. a concept can be a superconcept of itself)
-    * there can be arbitrary cycles, self-loops, and multiple inheritance within the abstract world
 
-i refer to any type system that follows these principles as having "Platonic Typing" rules. within individual Kata languages (KataCompiled, KataScript, etc), concepts and implementations can be shared freely through different syntaxes that may be better suited for certain purposes. 
+  * having abstract types that cannot be instantiated directly, but can be related to other abstract types
+    * Kata does not restrict abstract type relationships to a DAG or tree; instead, it allows for multiple inheritance, self-inheritance, and cyclic-inheritance
+  * having concrete types/templates that have abstract supertypes, which provide implementations for the abstract methods
+    * these can be hardware specific
 
-while the builtin concepts (like `list[T]`, `dict[K,V]`, and so on) describe most useful types and cover >90% of everyday development tasks, more concepts can be invented for a particular purpose that extend or specializes existing ones. take, for example, the study of biology -- it may require types for the concept of a gene, the concept of a protein, and the concept of a cell, which may interact with existing structures and ideas. the very basis of Kata's type system is this graph of concepts and their interactions, which can be understood by an abstract model of computation.
+concrete types in Kata can be thought of as one of the following categories:
 
-then, a small bootstrapping phase is required to implement some concrete types and objects that can be run on an actual physical machine. conceptually, though, code is being compiled by a mechanical mind, and ran in a digital simulation.
+  * datum types: represent some data that can be digitally encoded (examples: numbers, text data, etc.)
+    * these are always immutable (constant)
+  * struct types: represent a collection of datum types, or other struct types
+    * these are typically reference counted, and may be mutable (modifiable)
 
-PLATO (Platform/Language Agnostic Typed Ontology)
+
+for example, the following figure is the abstract and concrete builtin types that make up the `datum` types (i.e. atomic, hashable, immutable data elements):
+
+![type graph (datum)](/files/src/K0001/types_datum.dot.webp){: .img-L }
+
+
+i refer to any type system that follows these principles as having "Platonic Typing" rules (AFAIK, this is a new concept). within individual Kata languages (KataCompiled, KataScript, etc), concepts and implementations can be shared freely through different syntaxes that may be better suited for certain purposes. 
+
+a small bootstrapping phase is required to implement some concrete types and objects that can be run on an actual physical machine. conceptually, though, code is being compiled by a mechanical mind, and ran in a digital simulation. 
+
+for `datum` types, these are reducable to a bit string, which is a sequence of bits that can be interpreted as the same value, regardless of the hardware. think of it as a universal data encoding for numbers and text.
+
+while the builtin abstract types (like `list[T]`, `dict[K,V]`, and so on) describe most useful types and cover >95% of everyday development tasks, more concepts can be described for a particular purpose that extend or specializes existing ones. take, for example, the study of biology -- it may require types for the concept of DNA, the concept of a protein, and the concept of a cell, which may interact with existing structures and ideas. the very basis of Kata's type system is this graph of concepts and their interactions, which can be understood by an abstract model of computation.
+
+
+<!--
+
+PLATO (Platform/Language Agnostic Typed Ontology) is the standard for describing the concepts and relationships between them. it is a [graph of concepts](https://en.wikipedia.org/wiki/PLATO_%28concept_graph%29) that is used to describe the concepts and relationships between them.
+
+
+while the builtin concepts (like `list[T]`, `dict[K,V]`, and so on) 
+
 
 ![type graph (all)](/files/src/K0001/types_all.dot.webp){: .img-L }
 
+  sum(range(100) where $.isprime)
+
+
+  sum(v for k, v in ents)
+
+
+  sum(each x in range(100) <expr>)
+  sum(<expr> for x in range(100))
+  sum(<expr> for x in range(100))
+
+  for x in range(100) where $.isprime {
+    print(x)
+  }
+
+
+-->
+
+
+
+<!--
 
 ```plato
 # collatz.kc
@@ -192,3 +232,4 @@ with fp = kos.fs.open('collatz.dot', 'T') {
 }
 
 ```
+-->

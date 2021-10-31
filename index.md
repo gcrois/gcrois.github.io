@@ -13,7 +13,7 @@ Kata is a cross-platform ecosystem for developing software on desktop, mobile, w
 
 [Kata will **always** be free](/kpl). part of Kata's mission is to provide a Free and Open Source (FOSS) software development environment for everyone.
 
-## How do I get started?
+## How Do I Get Started?
 
 right now, Kata is a work in progress and can't be downloaded. you can check on our [blog (/blog)](/blog) for updates, as well as [the GitHub repo](https://github.com/katatools/kata) for current status.
 

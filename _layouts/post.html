@@ -7,7 +7,7 @@ layout: page
 <!-- Series TOC -->
 {% if page.series %}
     <aside class="series">
-        <h4>Series: <em>{{ page.series }}</em></h4>
+        <strong>Series: <em>{{ page.series }}</em></strong>
         <ul>
             {% assign series-posts = site.posts | reverse | where: 'series', page.series %}
             {% for post in series-posts %}
@@ -21,7 +21,7 @@ layout: page
             {% endfor %}
         </ul>
         {% if series-posts.size == 1 %}
-        <p>More posts coming soon!</p>
+        <p>more posts coming soon!</p>
         {% endif %}
     </aside>
     <hr>
