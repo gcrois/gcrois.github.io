@@ -1,11 +1,10 @@
 ---
 layout: page
-title: Philosophy
+title: Philosophy of Kata
 permalink: /philosophy
 use_jquery: true
 use_prism: true
 ---
-
 
 
 Kata is designed with a unifying philosophy of mathematics and computation in mind, based on Mathematical Platonism and [Digital Philosophy](https://en.wikipedia.org/wiki/Digital_philosophy). specifically (emphasis ours):
@@ -18,28 +17,30 @@ Kata is designed with a unifying philosophy of mathematics and computation in mi
 >
 > -- Stanford, [*Platonism in the Philosophy of Mathematics*](https://plato.stanford.edu/entries/platonism-mathematics/)
 
-
-
 ![Theory of Forms diagram](/files/TOF-0.webp){: .img-left }
 
-on a conceptual level, this allows for a more expressive and dynamic language that more closely mirrors programmers' intentions, rather than the particular steps a given machine may take to achieve such intentions. as a result, written programs can be more easily read by others, including those who are not familiar with computers at a low level. 
+on a conceptual level, this allows for a more expressive and dynamic language that more closely mirrors programmers' intentions, rather than the particular steps a given machine may take to achieve such intentions. 
 
-on a practical level, this allows for efficient implementation of concepts on different hardware situations (for example, on a mobile device, desktop application, web browser, embedded system, or even a GPU/external processor), which is a useful feature for the future of computing that aims to be ubiquitous. 
+as a result, written programs can be more easily read by others, including those who are not familiar with computers at a low level. 
+
+on a practical level, this allows for efficient implementation of concepts on different hardware situations (for example, on a mobile device, desktop application, web browser, embedded system, or even a GPU/external processor), which is a useful and neccessary feature for the future of ubiquitous computing:
 
   * Kata is designed to prevent vendor lock-ins, which is a common problem in the industry
   * Kata is designed to be open source by design, and encourage FOSS applications/libraries that can be shared across operating systems, platforms, and hardware
 
-<br/>
-<br/>
+
+<div style="clear: both;"></div>
 
 ![Kata Name Origin](/files/kataname.webp){: .img-right }
-
 
 ## 'Kata' Name Origin
 
 'Kata' gets its name from the Greek [κατά](https://en.wiktionary.org/wiki/%CE%BA%CE%B1%CF%84%CE%AC#Ancient_Greek), which has a few related meanings (see the image on the right).
 
 most primarily, it means 'according to, in conformity with' (referencing concepts and [abstract data types](https://en.wikipedia.org/wiki/Abstract_data_type)), and 'downwards' (referencing that programs are written in a [top-down fashion](https://en.wikipedia.org/wiki/Top-down_and_bottom-up_design))
+
+
+<!--
 
 ## Differences
 
@@ -82,3 +83,4 @@ JavaScript was not created with any kind of ecosystem in mind, so everything is 
   * type coercion and loose type system make little intuitive sense to most people (prompting the creation of `===` (the triple equals))
   * the lack of composable components, and difficult prototypal type system make it a pain to implement even simple structures
   * the lack of a standard library causes an abundance of low-quality duplicate code (for example, the [leftpad fiasco](https://qz.com/646467/how-one-programmer-broke-the-internet-by-deleting-a-tiny-piece-of-code/))
+-->

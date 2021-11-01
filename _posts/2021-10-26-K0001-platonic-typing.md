@@ -9,10 +9,13 @@ series: types
 thumb: /files/src/K0001/types_all.dot.webp
 ---
 
-buckle up! we're about to dive into the world of math, programming, and language. particularly, how they interact and how they can be used in Kata via Platonic Typing. i'm going to also explain some other type systems, and some issues that arise when using them.
+
+buckle up! we're about to dive into the world of math, programming, and language. particularly, how they interact and how they can be used in Kata via Platonic Typing. i'm going to also explain some other common type systems
 
 <!--more-->
 
+  * TOC 
+{: toc}
 
 ## First, An Aside
 
@@ -36,21 +39,26 @@ if you're unfamiliar or need a refresher on what Platonism is, here's a good def
 > -- Stanford, [*Platonism in the Philosophy of Mathematics*](https://plato.stanford.edu/entries/platonism-mathematics/)
 
 
-try to keep this in mind, as we'll revisit this later in the post. specifically, try to apply it to programming languages, concepts, and objects. 
+try to keep this in mind, as we'll revisit this later in the post. specifically, try to apply it to programming languages, concepts, and objects. if you're interested, see our [philosophy page](/philosophy)
+
+
+### Skip Ahead
+
+**NOTE:** if you want to skip ahead to Kata's, system, [click here](#katas-approach)
 
 
 ## Type Systems, Semantics
 
 when we talk about programming, we (primarily) talk about concepts. for example, when we program on whiteboards using [psuedocode](https://en.wikipedia.org/wiki/Pseudocode), loose definitions of types and functions are used. we don't care about the actual implementation, we care about the semantics of the code (i.e. the underlying processes and algorithms). we could say that we are working in a **top down** fashion.
 
-however, when we're programming in a language, we're usually dealing with an actual implementation. we typically tie functionality directly to the name we choose for a given concept. in this case, programmers are typically working in a **bottom up** fashion. for example, most object-oriented type systems with inheritance are bottom up, since we start with nothing and build up to more specific types.
+however, when we're programming in a language, we're usually dealing with an actual implementation. we typically tie functionality directly to the name we choose for a given concept. in this case, programmers are working in a **bottom up** fashion. for example, most object-oriented type systems with inheritance are bottom up, since we start with nothing and build up to more specific types.
 
 i've noticed that whiteboard programming is the best way to convey ideas to colleagues when we're working on a difficult problem, because all the "noise" in most programming languages is gone. when you understand a whiteboard full of psuedocode, the distance between math, computer science, and normal language (in our case, English) is reduced by (at least) an order of magnitude. as a result it takes less time to:
 
   * write/describe an algorithm
   * understand psuedocode written by someone else
 
-if only there was some way to succinctly represent that in a way that would actually run on a physical machine... but before we can describe such a system, let's remind ourselves of some existing type systems that are being used my millions of programmers in the world today to great effect:
+if only there was some way to succinctly represent that in a way that would actually run on a physical machine... but before we can describe such a system, let's remind ourselves of some existing type systems that are being used my millions of programmers in the real world:
 
 ### C, C++, C# (3 generations of bottom-up design)
 
@@ -127,34 +135,57 @@ now, we must **really** be done... right?
 
 Kata's approach to types is different than all the aforementioned languages, although it is most similar to Julia's. Kata's type system is based on [mathematical platonism](https://en.wikipedia.org/wiki/Philosophy_of_mathematics#Platonism). you can read about more about [Kata's philosophy here](/philosophy), but in terms of traditional type systems, Kata's can be described as:
 
-
-
-
   * having abstract types that cannot be instantiated directly, but can be related to other abstract types
     * Kata does not restrict abstract type relationships to a DAG or tree; instead, it allows for multiple inheritance, self-inheritance, and cyclic-inheritance
   * having concrete types/templates that have abstract supertypes, which provide implementations for the abstract methods
-    * these can be hardware specific
+    * these can be hardware specific, or can include performance hacks on certain platforms
+  * religious usage of [Design by Contract (DBC)](https://en.wikipedia.org/wiki/Design_by_contract)
 
 concrete types in Kata can be thought of as one of the following categories:
 
   * datum types: represent some data that can be digitally encoded (examples: numbers, text data, etc.)
-    * these are always immutable (constant)
+    * these are either immutable (constant), or can be frozen into an immutable object
   * struct types: represent a collection of datum types, or other struct types
-    * these are typically reference counted, and may be mutable (modifiable)
+    * these are typically reference counted and garbage collected, and may be mutable (modifiable)
 
 
-for example, the following figure is the abstract and concrete builtin types that make up the `datum` types (i.e. atomic, hashable, immutable data elements):
+for example, the following figure describes builtin types and concepts that make up the `datum` types (i.e. atomic, hashable, immutable data elements):
 
 ![type graph (datum)](/files/src/K0001/types_datum.dot.webp){: .img-L }
 
 
+here is a figure describing even more of the default concepts:
+
+![type graph (all)](/files/src/K0001/types_all.dot.webp){: .img-L }
+
+a few notes:
+
+  * notice that there is a cyclic inheritance between `list[T]` and `dict[K,V]`. this is intentional, and can be understood as "a `list[T]` is a dictionary from `int` (index) to `T` (value), and a `dict[K,V]` is a list of `(K,V)` tuples"
+  * a `list` is a `seq` (sequence), but a `seq` is not neccessarily a `list`. for example, sequences can be infinite, but lists are finite
+
+
+#### Platonic Typing
+
 i refer to any type system that follows these principles as having "Platonic Typing" rules (AFAIK, this is a new concept). within individual Kata languages (KataCompiled, KataScript, etc), concepts and implementations can be shared freely through different syntaxes that may be better suited for certain purposes. 
 
-a small bootstrapping phase is required to implement some concrete types and objects that can be run on an actual physical machine. conceptually, though, code is being compiled by a mechanical mind, and ran in a digital simulation. 
+for `datum` types, these are typically reducable to a bit string, which is a sequence of bits that can be interpreted as the same value, regardless of the hardware. think of it as a universal data encoding for numbers and text.
 
-for `datum` types, these are reducable to a bit string, which is a sequence of bits that can be interpreted as the same value, regardless of the hardware. think of it as a universal data encoding for numbers and text.
+while the builtin abstract types (like `list[T]`, `dict[K,V]`, and so on) describe most useful types and cover >95% of everyday development tasks, more concepts can be described for a particular purpose that extend or specializes existing ones.
 
-while the builtin abstract types (like `list[T]`, `dict[K,V]`, and so on) describe most useful types and cover >95% of everyday development tasks, more concepts can be described for a particular purpose that extend or specializes existing ones. take, for example, the study of biology -- it may require types for the concept of DNA, the concept of a protein, and the concept of a cell, which may interact with existing structures and ideas. the very basis of Kata's type system is this graph of concepts and their interactions, which can be understood by an abstract model of computation.
+take, for example, the study of biology -- it may require types for the concept of DNA, the concept of a protein, and the concept of a cell, which may interact with each other, existing structures, and ideas. the very basis of Kata's type system is this graph of concepts and their interactions, which can be understood by an abstract model of computation.
+
+
+#### Difference From Interfaces
+
+i don't use the term 'interfaces' to describe these abstract types, even though they are similar in nature. instead, the term "concept" is used, because it is more accurate. strictly speaking, all interfaces are concepts, but not all concepts are interfaces.
+
+for example, interfaces cannot be cyclic, and still form a hierarchy (DAG). concepts may be cyclic, self-describing, and form a graph. the primary requirement is that all concepts are related to the `any` concept (which is, by definition, the broadest concept that encompasses any and all concepts and objects), and the `any` concept has no out-going edges (i.e. is not described by any other concept)
+
+
+
+#### How To Implement On Real Hardware?
+
+a small bootstrapping phase is required to implement some concrete types and objects that can be run on an actual physical machine. by default, Kata uses [LLVM](https://llvm.org/)'s types and operations. conceptually, though, code is being compiled by a mechanical mind, and ran in a digital simulation. 
 
 
 <!--

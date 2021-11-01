@@ -359,6 +359,12 @@ h2:hover .header-link, h3:hover .header-link, h4:hover .header-link, h5:hover .h
   opacity: 1;
 }
 
+ul {
+  list-style-position: inside;
+}
+ol {
+  list-style-position: inside;
+}
 h2::before {
   content: '# ';
 }
@@ -370,7 +376,7 @@ h3::before {
 h4::before {
   content: '### ';
 }
-h4::before {
+h5::before {
   content: '#### ';
 }
 /** Mobile/Web **/
