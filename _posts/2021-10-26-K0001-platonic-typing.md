@@ -160,7 +160,7 @@ here is a figure describing even more of the default concepts:
 
 a few notes:
 
-  * notice that there is a cyclic inheritance between `list[T]` and `dict[K,V]`. this is intentional, and can be understood as "a `list[T]` is a dictionary from `int` (index) to `T` (value), and a `dict[K,V]` is a list of `(K,V)` tuples"
+  * notice that there is a cyclic relationship between `list[T]` and `dict[K,V]`. this is intentional, and can be understood as "a `list[T]` is a dictionary from `int` (index) to `T` (value), and a `dict[K,V]` is a list of `(K,V)` tuples"
   * a `list` is a `seq` (sequence), but a `seq` is not neccessarily a `list`. for example, sequences can be infinite, but lists are finite
 
 
