@@ -168,29 +168,29 @@ a few notes:
 
 i refer to any type system that follows these principles as having "Platonic Typing" rules (AFAIK, this is a new concept). within individual Kata languages (KataCompiled, KataScript, etc), concepts and implementations can be shared freely through different syntaxes that may be better suited for certain purposes. 
 
-for `datum` types, these are typically reducable to a bit string, which is a sequence of bits that can be interpreted as the same value, regardless of the hardware. think of it as a universal data encoding for numbers and text.
+for `datum` types, these are typically reducable to a bit string (i.e. a sequence of bytes) that can be interpreted as the same value, regardless of the hardware. think of it as a universal data encoding for numbers and text.
 
-while the builtin abstract types (like `list[T]`, `dict[K,V]`, and so on) describe most useful types and cover >95% of everyday development tasks, more concepts can be described for a particular purpose that extend or specializes existing ones.
+while the builtin abstract types (like `list[T]`, `dict[K,V]`, and so on) describe most useful types and cover >95% of everyday development tasks, more concepts can be described for a particular purpose that extends or specializes existing ones (using `is`/`as` keywords).
 
 take, for example, the study of biology -- it may require types for the concept of DNA, the concept of a protein, and the concept of a cell, which may interact with each other, existing structures, and ideas. the very basis of Kata's type system is this graph of concepts and their interactions, which can be understood by an abstract model of computation.
 
 
-#### Difference From Interfaces
+#### Different Than Interfaces
 
 i don't use the term 'interfaces' to describe these abstract types, even though they are similar in nature. instead, the term "concept" is used, because it is more accurate. strictly speaking, all interfaces are concepts, but not all concepts are interfaces.
 
-for example, interfaces cannot be cyclic, and still form a hierarchy (DAG). concepts may be cyclic, self-describing, and form a graph. the primary requirement is that all concepts are related to the `any` concept (which is, by definition, the broadest concept that encompasses any and all concepts and objects), and the `any` concept has no out-going edges (i.e. is not described by any other concept)
+for example, interfaces cannot be cyclic, and still form a hierarchy (DAG). concepts may be cyclic, self-describing, and thus form a graph; the only requirement requirement is that all concepts are related to the `any` concept (which is, by definition, the broadest concept that encompasses any and all concepts and objects), and thus the `any` concept has no out-going edges (i.e. is not described by any other concept)
 
-
+to organize and describe this functionality, PLATO (Platform/Language Agnostic Typed Ontology) contains many common numeric, textual, and container concepts. many of the names in `plato` namespace are aliased in the global namespace (i.e. `list[T]` is equivalent to `plato.list[T]`)
 
 #### How To Implement On Real Hardware?
 
-a small bootstrapping phase is required to implement some concrete types and objects that can be run on an actual physical machine. by default, Kata uses [LLVM](https://llvm.org/)'s types and operations. conceptually, though, code is being compiled by a mechanical mind, and ran in a digital simulation. 
+a small bootstrapping phase is required to implement some concrete types and objects that can be run on an actual physical machine. by default, Kata uses [LLVM](https://llvm.org/)'s types and operations (typically in the `std` namespace). conceptually, though, code is being compiled by a mechanical mind, and ran in a digital simulation. 
+
+even "builtin" types (like `f64`, a 64 bit floating point number (alias of `plato.f64`)) are abstract. they typically map directly to an `std` type (such as `std.f64`) which provides a sane and efficient default implementation. the default implementation for any concept can be retrieved by using the `default()` function (i.e. `default(plato.f64) == std.f64`).
 
 
 <!--
-
-PLATO (Platform/Language Agnostic Typed Ontology) is the standard for describing the concepts and relationships between them. it is a [graph of concepts](https://en.wikipedia.org/wiki/PLATO_%28concept_graph%29) that is used to describe the concepts and relationships between them.
 
 
 while the builtin concepts (like `list[T]`, `dict[K,V]`, and so on) 
